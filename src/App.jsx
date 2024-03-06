@@ -16,7 +16,7 @@ const posts = [
     },
     content: [
       {
-        type: 'paraghraph',
+        type: 'paragraph',
         content: 'Fala galeraa 👍'
       },
       {
@@ -69,7 +69,11 @@ export function App() {
       <main>
         
      {posts.map(post => {
-        return <Post />
+        return (<Post 
+          author ={post.author}
+          content={post.content}
+          publishedAt ={post.publishedAt}
+          />)
      })}
 
       </main>
