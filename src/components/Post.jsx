@@ -5,8 +5,16 @@ import { Avatar } from './Avatar'
 import { Comments } from './Comments'
 
 import style from './Post.module.css'
+import { useState } from 'react';
+
 
 export function Post({author, publishedAt, content}){
+    
+    const [comments, setComments ] = useState([
+        1,
+        2,
+    ])
+
     const publishedDateFormatted = format(publishedAt,"d 'de' LLLL 'ás' HH:mm'h'",{
         locale: pt,
     })
@@ -16,6 +24,11 @@ export function Post({author, publishedAt, content}){
         addSuffix: true,
 
     })
+
+    function handleCreateComment(){
+        event.preventDefault()
+        setComments([...comments, comments.length + 1])
+    }
 
     return(
         <article className={style.post}>
@@ -43,7 +56,7 @@ export function Post({author, publishedAt, content}){
                 })}
             </div>
 
-            <form className={style.commentForm}>
+            <form onSubmit={handleCreateComment} className={style.commentForm}>
                 <strong>Deixe o seu feedback</strong>
 
                 <textarea
@@ -55,9 +68,9 @@ export function Post({author, publishedAt, content}){
             </form>
 
             <div className={style.commentLsit}>
-                <Comments />
-                <Comments />
-                <Comments />
+               {comments.map(comment =>{
+                return <Comments />
+               })}
             </div>
         </article>
     )
