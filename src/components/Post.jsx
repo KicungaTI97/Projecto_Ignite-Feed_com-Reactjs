@@ -33,6 +33,10 @@ export function Post({author, publishedAt, content}){
         event.target.comment.value = '';
     }
 
+    function deleteCommet(comment){
+        console.log(`Deletar comentario ${comment}`)
+    }
+
     return(
         <article className={style.post}>
             <header>
@@ -75,9 +79,14 @@ export function Post({author, publishedAt, content}){
             <div className={style.commentLsit}>
                {comments.map(comment =>{
                
-                return <Comments key={comment} content={comment}/>
+                return (<Comments
+                    key = {comment}
+                    content = {comment}
+                    onDeleteCommet = {deleteCommet}
+                />)
                })}
             </div>
+
         </article>
     )
 }
