@@ -10,7 +10,7 @@ const posts = [
   { 
     id: 1,
     author: {
-      avatarUrl: 'https://scontent.flad5-1.fna.fbcdn.net/v/t39.30808-6/241339478_606401777159679_645219824700624280_n.jpg?stp=c0.78.304.304a_dst-jpg_p180x540&_nc_cat=110&ccb=1-7&_nc_sid=3d9721&_nc_eui2=AeF2ukFnkuVhB-iBpnaln3loNazGtCbCpVY1rMa0JsKlVkiTIW6pWy42fj6P9Ob1_o7cpY3BpL0cVU5q8nmIpOle&_nc_ohc=QFunch6VqUYAX9q7K64&_nc_zt=23&_nc_ht=scontent.flad5-1.fna&oh=00_AfDKNtUmLGb4S6ai7Gq6HZA1_KIAZpZti157v_qHwYz94w&oe=65EA6D93',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/86608565?v=4',
       name: 'Jaoa Kicunga',
       role: 'Developement Web'
     },
@@ -70,9 +70,10 @@ export function App() {
         
      {posts.map(post => {
         return (<Post 
-          author ={post.author}
-          content={post.content}
-          publishedAt ={post.publishedAt}
+          key={1}
+          author = {post.author}
+          content = {post.content}
+          publishedAt = {post.publishedAt}
           />)
      })}
 

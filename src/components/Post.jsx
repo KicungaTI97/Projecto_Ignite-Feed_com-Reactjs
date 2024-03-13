@@ -8,11 +8,11 @@ import style from './Post.module.css'
 import { useState } from 'react';
 
 
+
 export function Post({author, publishedAt, content}){
-    
+
     const [comments, setComments ] = useState([
-        1,
-        2,
+        'Post muito bacana, hein?!'
     ])
 
     const publishedDateFormatted = format(publishedAt,"d 'de' LLLL 'ás' HH:mm'h'",{
@@ -25,9 +25,12 @@ export function Post({author, publishedAt, content}){
 
     })
 
-    function handleCreateComment(){
+    function handleCreateComment(event){
+        const newCommentText = event.target.comment.value
         event.preventDefault()
-        setComments([...comments, comments.length + 1])
+        setComments([...comments, newCommentText])
+
+        event.target.comment.value = '';
     }
 
     return(
@@ -49,9 +52,9 @@ export function Post({author, publishedAt, content}){
             <div className={style.content}>
                 {content.map(line =>{
                     if(line.type === 'paragraph'){
-                        return <p>{line.content}</p>
+                        return <p key={line.content}>{line.content}</p>
                     }else if(line.type === 'link'){
-                        return <p><a href="#">{line.content}</a></p>
+                        return <p key={line.content}><a href="#">{line.content}</a></p>
                     }
                 })}
             </div>
@@ -60,6 +63,8 @@ export function Post({author, publishedAt, content}){
                 <strong>Deixe o seu feedback</strong>
 
                 <textarea
+                name='comment'
+                
                 placeholder='Deixe um comentário'
                 />
                 <footer>
@@ -69,7 +74,8 @@ export function Post({author, publishedAt, content}){
 
             <div className={style.commentLsit}>
                {comments.map(comment =>{
-                return <Comments />
+               
+                return <Comments key={comment} content={comment}/>
                })}
             </div>
         </article>

@@ -2,10 +2,10 @@ import { ThumbsUp, Trash } from 'phosphor-react'
 import style from './Comments.module.css'
 import { Avatar } from './Avatar'
 
-export function Comments(){
+export function Comments({content}){
   return(
     <div className={style.comment}>
-       <Avatar src="https://scontent.flad4-1.fna.fbcdn.net/v/t39.30808-6/291864186_763540081445847_3519077464262110308_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9c7eae&_nc_eui2=AeEdqWd8gfshom6kBnYGr6h8hHbDp5tie6iEdsOnm2J7qMTFgwKlSPokb-gA0j8LarmV0HjjndwKha1RjuEr8Roc&_nc_ohc=EbPz5qVfXKEAX8-MkY_&_nc_zt=23&_nc_ht=scontent.flad4-1.fna&oh=00_AfBvNhRJr68JrTkcVvAkxiop0Lsg30L8ekDmM6kUgAWuEQ&oe=65E3F035" />
+      <Avatar hasBorder  src="https://scontent.flad5-1.fna.fbcdn.net/v/t31.18172-8/27912460_939841862848618_1413740228598997692_o.jpg?stp=c0.211.1376.1376a_dst-jpg_s851x315&_nc_cat=100&ccb=1-7&_nc_sid=c21ed2&_nc_eui2=AeHRgUmC5aO344p7aAjuxgJLssZGk1er7eqyxkaTV6vt6h7jiUqK4vrdz1G1u06_ecgHLoAgHLSwsfrKR-3vC0hd&_nc_ohc=bpgMjXAFU9wAX8HJ-iT&_nc_ht=scontent.flad5-1.fna&oh=00_AfCK3jVpFMkiZRlpfV1JbXk7xwkO-6_og95PYKsf1qHj8Q&oe=660EB098" />
        <div className={style.commentBox}>
           <div className={style.commentContent}>
             <header>
@@ -18,7 +18,7 @@ export function Comments(){
               </button>
             </header>
 
-            <p>Muito bom Devon, parabens!! 👌👌</p>
+            <p>{content}</p>
             <footer>
              <button>
              <ThumbsUp />
