@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow } from 'date-fns';
+import { format, formatDistanceToNow, set } from 'date-fns';
 import pt from 'date-fns/locale/pt'
 
 import { Avatar } from './Avatar'
@@ -33,8 +33,12 @@ export function Post({author, publishedAt, content}){
         event.target.comment.value = '';
     }
 
-    function deleteCommet(comment){
-        console.log(`Deletar comentario ${comment}`)
+    function deleteCommet(commentToDelete){
+        const commentsWithoutDelete = comments.filter(comment =>{
+            return comment !== commentToDelete
+        })
+
+       setComments(commentsWithoutDelete)
     }
 
     return(
