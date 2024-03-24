@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, set } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
 import pt from 'date-fns/locale/pt'
 
 import { Avatar } from './Avatar'
@@ -15,6 +15,8 @@ export function Post({author, publishedAt, content}){
         'Post muito bacana, hein?!'
     ])
 
+    const [newCommentText, setNewCommentText] = useState("") 
+
     const publishedDateFormatted = format(publishedAt,"d 'de' LLLL 'ás' HH:mm'h'",{
         locale: pt,
     })
@@ -25,20 +27,35 @@ export function Post({author, publishedAt, content}){
 
     })
 
-    function handleCreateComment(event){
-        const newCommentText = event.target.comment.value
+    function handleNewCommentChange(){
+        event.target.setCustomValidity("")
+        setNewCommentText(event.target.value)
+    }
+
+    function handleNewCommentInvalid(){
+        event.target.setCustomValidity("Esse campo é obrigatório!")
+    }
+
+    function handleCreateNewComment(){
+        //const newCommentText = event.target.comment.value
         event.preventDefault()
         setComments([...comments, newCommentText])
 
         event.target.comment.value = '';
     }
+   
+   /*  function handleCreateNewCommentChange(){
+        event.preventDefault();
+        setNewCommentText(event.target.value)
 
+    }
+ */
     function deleteCommet(commentToDelete){
-        const commentsWithoutDelete = comments.filter(comment =>{
-            return comment !== commentToDelete
+       
+        const commentWhithOutDeleteOne = comments.filter(comment => {
+            return comment !== commentToDelete;
         })
-
-       setComments(commentsWithoutDelete)
+        setComments(commentWhithOutDeleteOne)
     }
 
     return(
@@ -67,13 +84,16 @@ export function Post({author, publishedAt, content}){
                 })}
             </div>
 
-            <form onSubmit={handleCreateComment} className={style.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={style.commentForm}>
                 <strong>Deixe o seu feedback</strong>
 
                 <textarea
                 name='comment'
-                
                 placeholder='Deixe um comentário'
+                onChange={handleNewCommentChange}
+               value={newCommentText}
+                onInvalid={handleNewCommentInvalid}
+                required
                 />
                 <footer>
                     <button type='submit'>Publicar</button>
