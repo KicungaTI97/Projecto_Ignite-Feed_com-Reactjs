@@ -18,14 +18,19 @@ interface Content{
     content: string;
 }
 
-interface PostProps{
+export interface PostType{
+    id:number;
     author: Author;
     publishedAt: Date;
     content: Content[];
+}
+
+interface PostProps{
+   post: PostType;
 
 }
 
-export function Post({author, publishedAt, content}:PostProps){
+export function Post({post}:PostProps){
 
     const [comments, setComments ] = useState([
         'Post muito bacana, hein?!'
@@ -33,11 +38,11 @@ export function Post({author, publishedAt, content}:PostProps){
 
     const [newCommentText, setNewCommentText] = useState("") 
 
-    const publishedDateFormatted = format(publishedAt,"d 'de' LLLL 'ás' HH:mm'h'",{
+    const publishedDateFormatted = format(post.publishedAt,"d 'de' LLLL 'ás' HH:mm'h'",{
         locale: pt,
     })
 
-    const publishedDateRelativetoNow = formatDistanceToNow(publishedAt,{
+    const publishedDateRelativetoNow = formatDistanceToNow(post.publishedAt,{
         locale: pt,
         addSuffix: true,
 
@@ -47,7 +52,7 @@ export function Post({author, publishedAt, content}:PostProps){
         event.preventDefault()
         setComments([...comments, newCommentText])
 
-        event.target.comment.value = '';
+       setNewCommentText('')
     }
 
     function handleNewCommentChange(event:ChangeEvent<HTMLTextAreaElement>){
@@ -59,14 +64,6 @@ export function Post({author, publishedAt, content}:PostProps){
         event.target.setCustomValidity("Esse campo é obrigatório!")
     }
 
-   
-   
-   /*  function handleCreateNewCommentChange(){
-        event.preventDefault();
-        setNewCommentText(event.target.value)
-
-    }
- */
     function deleteCommet(commentToDelete:string){
        
         const commentWhithOutDeleteOne = comments.filter(comment => {
@@ -79,20 +76,20 @@ export function Post({author, publishedAt, content}:PostProps){
         <article className={style.post}>
             <header>
                 <div className={style.author}>
-              <Avatar src={author.avatarUrl} 
+              <Avatar src={post.author.avatarUrl} 
               />
                 <div className={style.authorInfo}>
-                    <strong>{author.name}</strong>
-                    <span>{author.role}</span>
+                    <strong>{post.author.name}</strong>
+                    <span>{post.author.role}</span>
                 </div>
                 </div>
 
-                <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+                <time title={publishedDateFormatted} dateTime={post.publishedAt.toISOString()}>
                     {publishedDateRelativetoNow}
                 </time>
             </header>
             <div className={style.content}>
-                {content.map(line =>{
+                {post.content.map(line =>{
                     if(line.type === 'paragraph'){
                         return <p key={line.content}>{line.content}</p>
                     }else if(line.type === 'link'){
